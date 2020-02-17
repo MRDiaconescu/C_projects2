@@ -1,0 +1,279 @@
+
+
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+
+
+
+//define the element of the doubly linked list
+
+typedef int info;
+
+typedef struct elem {
+
+	info informatie;
+	
+	elem * ptrNextElem;
+
+	elem * ptrPrevElem;
+
+} * pelem;
+
+
+
+//add a node in the doubly linked list after the last node
+
+pelem elemNou(pelem capLista, info informatie);
+
+pelem elemNou(pelem capLista, info informatie){
+
+    if (!capLista) {
+
+	    capLista = new elem;
+
+	    if (! capLista) {
+		
+		    cout << "str" << "\n"; }
+
+	capLista -> informatie = informatie;
+
+	capLista -> ptrNextElem = NULL;
+
+	capLista -> ptrPrevElem = NULL;
+
+	return capLista;}
+
+
+	pelem elemCurr = capLista;
+
+
+	while (elemCurr -> ptrNextElem != NULL) {
+
+	
+		elemCurr = elemCurr -> ptrNextElem;}
+
+
+	pelem elemAdaugat = new elem;
+
+	if (! elemAdaugat) {
+
+		cout << "str" << "\n";
+
+		return capLista;}
+
+	
+	elemAdaugat -> informatie = informatie;
+
+	elemAdaugat -> ptrNextElem = NULL;
+
+	elemAdaugat -> ptrPrevElem = elemCurr;
+
+	elemCurr -> ptrNextElem = elemAdaugat;
+
+	return capLista;
+}
+
+
+
+
+//add a node in the doubly linked list after a node parameter
+
+void InsertAfter(pelem capLista, info informatie, info informatieNew);
+
+void InsertAfter(pelem capLista, info informatie, info informatieNew){
+
+	pelem elemCurr = capLista;
+
+	while ( (elemCurr != NULL) && (elemCurr -> informatie != informatie)){
+		
+		elemCurr = elemCurr -> ptrNextElem;}
+
+	if (elemCurr == NULL) {
+
+	cout << "str" << informatie << "\n";}
+
+
+	else {
+ 
+		pelem elemNew = new elem;
+
+		if (!elemNew) {
+
+			cout << "str" << "\n";}
+
+		else {
+
+			elemNew -> informatie = informatieNew;
+
+			elemNew -> ptrNextElem = elemCurr -> ptrNextElem;
+
+			elemNew -> ptrPrevElem = elemCurr;
+
+			elemCurr -> ptrNextElem = elemNew;
+
+		
+		if (elemNew -> ptrNextElem != NULL) {
+
+			elemNew -> ptrNextElem -> ptrPrevElem = elemNew;}
+
+	}
+
+
+}
+}
+
+
+
+
+//insert a node in the doubly linked list before a node parameter
+
+pelem InsertBefore(pelem capLista, info informatie, info informatieNew);
+
+pelem InsertBefore(pelem capLista, info informatie, info informatieNew){
+
+
+	pelem elemCurr = capLista, elemNew = new elem, anteriorElemCurr;
+
+
+	if (! elemNew) {
+
+		cout << "str" << "\n";}
+
+	else {
+
+		elemNew -> informatie = informatieNew;
+
+	if (capLista -> informatie == informatie) {
+
+		capLista -> ptrPrevElem = elemNew;
+
+		elemNew -> ptrNextElem = capLista;
+
+		elemNew -> ptrPrevElem = NULL;
+
+
+		return elemNew; }
+
+
+		while ((elemCurr != NULL) && (elemCurr -> informatie != informatie)){
+
+			elemCurr = elemCurr -> ptrNextElem;}
+
+		if (elemCurr == NULL) {
+
+			cout << "str" << informatie << "\n";
+			
+			delete elemNew;}
+
+
+		else {
+		
+			elemNew -> ptrPrevElem = elemCurr -> ptrPrevElem;
+			
+			elemNew -> ptrNextElem = elemCurr;
+
+
+		if (elemCurr -> ptrPrevElem != NULL) {
+
+			elemNew -> ptrPrevElem -> ptrNextElem = elemNew;
+
+		    elemCurr -> ptrPrevElem = elemNew; }
+		    
+		    
+		}
+		
+	}
+
+		return capLista;
+
+}
+
+
+
+
+//delete a node from the doubly linked list
+
+
+pelem delElem(pelem capLista, info informatie);
+
+pelem delElem(pelem capLista, info informatie) {
+
+
+	if (capLista == NULL) {
+
+		return capLista;}
+
+	pelem elemCurr = capLista, anteriorElemCurr;
+
+	
+	if (elemCurr -> informatie == informatie) {
+
+		elemCurr = capLista;
+
+		capLista = capLista -> ptrNextElem;
+
+		capLista -> ptrPrevElem = NULL;
+
+		delete elemCurr; }
+		
+
+	else {
+
+		while((elemCurr != NULL) && (elemCurr -> informatie != informatie)) {
+
+		elemCurr = elemCurr -> ptrNextElem;}
+		
+
+	if (elemCurr == NULL) {
+
+		cout << "str" << informatie << "\n";}
+
+
+	else { 
+
+		elemCurr -> ptrPrevElem -> ptrNextElem = elemCurr -> ptrNextElem;
+
+
+		if (elemCurr -> ptrNextElem != NULL) {
+
+			elemCurr -> ptrNextElem -> ptrPrevElem = elemCurr -> ptrPrevElem;}
+
+
+		delete elemCurr;}
+
+}
+
+return capLista;
+
+}
+
+
+
+//delete a doubly linked list 
+
+
+pelem delDLL(pelem capLista);
+
+pelem delDLL(pelem capLista) {
+
+	pelem elemSters;
+
+
+	while (capLista != NULL) {
+
+	elemSters = capLista;
+
+	capLista = capLista -> ptrNextElem;
+
+
+	delete elemSters; }
+
+	return NULL;
+
+
+}
+
+
+	
+int main(){}
